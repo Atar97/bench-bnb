@@ -8,4 +8,5 @@ document.addEventListener('DOMContentLoaded', ()=> {
     <h1>React</h1>,
       root
   );
+  
 });
