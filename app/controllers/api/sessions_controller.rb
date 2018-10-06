@@ -6,17 +6,19 @@ class Api::SessionsController < ApplicationController
       params[:user][:password]
     )
     if @user
+      login(@user)
       render :show
     else
-      render json: {errors: 'Invalid Credentials'}, status: 422
+      render json: ['Invalid Credentials'], status: 422
     end
   end
 
   def destroy
+    # debugger
     if logout!
-      render json: {}
+      render json: {sessions: {id: nil}}
     else
-      render json: {errors: 'No user to logout'}, status: 404
+      render json: ['No user to logout'], status: 404
     end
   end
 
