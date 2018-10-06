@@ -90,7 +90,7 @@
 /*!*********************************************!*\
   !*** ./frontend/actions/session_actions.js ***!
   \*********************************************/
-/*! exports provided: RECEIVE_CURRENT_USER, LOGOUT_CURRENT_USER, SESSION_ERRORS, CREATE_USER, receiveCurrentUser, receiveErrors, logoutCurrentUser, createThunkAction, logout, login, signUp */
+/*! exports provided: RECEIVE_CURRENT_USER, LOGOUT_CURRENT_USER, SESSION_ERRORS, CREATE_USER, receiveCurrentUser, receiveErrors, createThunkAction, logout, login, signUp */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -101,7 +101,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CREATE_USER", function() { return CREATE_USER; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveCurrentUser", function() { return receiveCurrentUser; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveErrors", function() { return receiveErrors; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "logoutCurrentUser", function() { return logoutCurrentUser; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createThunkAction", function() { return createThunkAction; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "logout", function() { return logout; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "login", function() { return login; });
@@ -123,12 +122,9 @@ var receiveErrors = function receiveErrors(errors) {
     type: SESSION_ERRORS,
     errors: errors
   };
-};
-var logoutCurrentUser = function logoutCurrentUser() {
-  return {
-    type: LOGOUT_CURRENT_USER
-  };
-};
+}; // export const logoutCurrentUser = () => ({
+//   type: LOGOUT_CURRENT_USER
+// });
 
 var success = function success(payload) {
   dispatch(receiveCurrentUser(payload));
@@ -252,11 +248,8 @@ __webpack_require__.r(__webpack_exports__);
   Object.freeze(state);
 
   switch (action.type) {
-    case _actions_session_actions__WEBPACK_IMPORTED_MODULE_0__["LOGOUT_CURRENT_USER"]:
-      return {
-        id: null
-      };
-
+    // case LOGOUT_CURRENT_USER:
+    //   return {id: null};
     case _actions_session_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_CURRENT_USER"]:
       return action.payload.sessions;
 

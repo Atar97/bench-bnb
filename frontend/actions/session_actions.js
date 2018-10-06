@@ -16,9 +16,9 @@ export const receiveErrors = errors => ({
   errors
 });
 
-export const logoutCurrentUser = () => ({
-  type: LOGOUT_CURRENT_USER
-});
+// export const logoutCurrentUser = () => ({
+//   type: LOGOUT_CURRENT_USER
+// });
 
 
 const success = payload => {
