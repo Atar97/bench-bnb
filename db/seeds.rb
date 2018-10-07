@@ -8,10 +8,16 @@
 
 ActiveRecord::Base.transaction do
   User.destroy_all
+  Park.destroy_all
 
   User.create!([
     {username: 'atar97', email:'austin', password: 'password'},
     {username: 'theLastSultan', email: 'blake', password: 'password'}
     ])
 
+  Park.create!([
+    {description: 'Glen Canyon Park', lat: 37.742253, lng: -122.445157},
+    {description: 'Mt. Davidson', lat: 37.739733, lng: -122.454807},
+    {description: 'Golden Gate Park', lat: 37.768699, lng: -122.476996}
+    ])
 end
