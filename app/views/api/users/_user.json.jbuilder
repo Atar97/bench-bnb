@@ -1,7 +1,3 @@
-json.users do
-
-  json.set! user.id do
-    json.extract! user, :id, :username, :email
-  end
-
+if user
+  json.extract! user, :id, :username, :email
 end

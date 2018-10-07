@@ -6,7 +6,6 @@ import App from './app';
 
 class Root extends React.Component {
   render() {
-    debugger;
     return (
       <Provider store={this.props.store}>
         <HashRouter>
