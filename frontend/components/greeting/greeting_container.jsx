@@ -1,10 +1,9 @@
 import {connect} from 'react-redux';
-import {logout} from '../actions/session_actions';
+import {logout} from '../../actions/session_actions';
 import Greeting from './greeting';
 
-const mapStP = (state) => {
-  debugger;
-  const currentUser = state.entities.users[state.session.id];
+const mapStP = ({entities, session}) => {
+  const currentUser = entities.users[session.id];
   return {currentUser};
 };
 
