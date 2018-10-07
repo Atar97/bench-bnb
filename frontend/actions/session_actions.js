@@ -14,7 +14,6 @@ export const receiveErrors = errors => ({
 });
 
 const success = payload => {
-  debugger;
   dispatch(receiveCurrentUser(payload));
 };
 
