@@ -14,4 +14,7 @@ class Park < ApplicationRecord
   validates :lat, :lng, presence: true
   validates :description, length: {maximum: 140}
 
+  def unique_pair
+    
+  end
 end

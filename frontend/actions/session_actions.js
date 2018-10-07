@@ -17,7 +17,7 @@ const success = payload => {
   dispatch(receiveCurrentUser(payload));
 };
 
-const failure = errorResponse => {
+export const failure = errorResponse => {
   const errors = errorResponse.responseJSON;
   dispatch(receiveErrors(errors));
 };

@@ -90,7 +90,7 @@
 /*!*********************************************!*\
   !*** ./frontend/actions/session_actions.js ***!
   \*********************************************/
-/*! exports provided: RECEIVE_CURRENT_USER, RECEIVE_SESSION_ERRORS, receiveCurrentUser, receiveErrors, createThunkAction, logout, login, signUp */
+/*! exports provided: RECEIVE_CURRENT_USER, RECEIVE_SESSION_ERRORS, receiveCurrentUser, receiveErrors, failure, createThunkAction, logout, login, signUp */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -99,6 +99,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_SESSION_ERRORS", function() { return RECEIVE_SESSION_ERRORS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveCurrentUser", function() { return receiveCurrentUser; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveErrors", function() { return receiveErrors; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "failure", function() { return failure; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createThunkAction", function() { return createThunkAction; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "logout", function() { return logout; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "login", function() { return login; });
@@ -128,7 +129,6 @@ var failure = function failure(errorResponse) {
   var errors = errorResponse.responseJSON;
   dispatch(receiveErrors(errors));
 };
-
 var createThunkAction = function createThunkAction(callback) {
   return function (user) {
     return function (dispatch) {
