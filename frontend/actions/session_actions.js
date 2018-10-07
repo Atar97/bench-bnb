@@ -1,10 +1,7 @@
 import * as SessionUtil from '../util/session_util';
 
 export const RECEIVE_CURRENT_USER = 'RECEIVE_CURRENT_USER';
-export const LOGOUT_CURRENT_USER = 'LOGOUT_CURRENT_USER';
-export const SESSION_ERRORS = 'SESSION_ERRORS';
-export const CREATE_USER = 'CREATE_USER';
-
+export const RECEIVE_SESSION_ERRORS = 'RECEIVE_SESSION_ERRORS';
 
 export const receiveCurrentUser = payload => ({
   type: RECEIVE_CURRENT_USER,
@@ -12,14 +9,9 @@ export const receiveCurrentUser = payload => ({
 });
 
 export const receiveErrors = errors => ({
-  type: SESSION_ERRORS,
+  type: RECEIVE_SESSION_ERRORS,
   errors
 });
-
-// export const logoutCurrentUser = () => ({
-//   type: LOGOUT_CURRENT_USER
-// });
-
 
 const success = payload => {
   dispatch(receiveCurrentUser(payload));
