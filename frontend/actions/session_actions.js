@@ -14,10 +14,12 @@ export const receiveErrors = errors => ({
 });
 
 const success = payload => {
+  debugger;
   dispatch(receiveCurrentUser(payload));
 };
 
-const failure = errors => {
+const failure = errorResponse => {
+  const errors = errorResponse.responseJSON;
   dispatch(receiveErrors(errors));
 };
 

@@ -121,10 +121,12 @@ var receiveErrors = function receiveErrors(errors) {
 };
 
 var success = function success(payload) {
+  debugger;
   dispatch(receiveCurrentUser(payload));
 };
 
-var failure = function failure(errors) {
+var failure = function failure(errorResponse) {
+  var errors = errorResponse.responseJSON;
   dispatch(receiveErrors(errors));
 };
 
@@ -172,6 +174,12 @@ document.addEventListener('DOMContentLoaded', function () {
     user: {
       email: 'austin',
       password: 'password'
+    }
+  };
+  window.bad = {
+    user: {
+      email: 'austin',
+      password: 'passwsdford'
     }
   };
   react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "React"), root);

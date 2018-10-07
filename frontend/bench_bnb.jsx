@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', ()=> {
   window.login = login;
   window.logout = logout;
   window.austin = {user: {email: 'austin', password: 'password'}};
+  window.bad = {user: {email: 'austin', password: 'passwsdford'}};
 
 
   ReactDOM.render(
