@@ -7,7 +7,6 @@ class Greeting extends React.Component {
   }
 
   handleClick(e) {
-    debugger;
     e.preventDefault();
     this.props.logout();
   }

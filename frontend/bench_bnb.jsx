@@ -7,7 +7,7 @@ import {login, logout, signUp} from './actions/session_actions';
 document.addEventListener('DOMContentLoaded', ()=> {
   const rootEl = document.getElementById('root');
   let store;
-  if (window.currentUser) {
+  if (window.currentUser.id) {
     const preloadedState = {
       entities: {
         users: {[window.currentUser.id]: window.currentUser}

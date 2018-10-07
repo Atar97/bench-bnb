@@ -33,7 +33,6 @@ class SessionForm extends React.Component {
     if (this.props.formType === 'Login') {
       link = <Link to='/signup'>Sign Up</Link>
     }
-    debugger;
     return (
       <form onSubmit={this.handleSubmit.bind(this)}>
         <h2>{this.props.formType}</h2>
