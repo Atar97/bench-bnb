@@ -9,13 +9,19 @@ export const receiveParks = (parks) => ({
 });
 
 export const receiveErrors = (errors) => ({
-  type: RECEVIE_PARK_ERRORS,
+  type: RECEIVE_PARK_ERRORS,
   errors
 });
 
-export const fetchBenches = () => dispatch => {
-  const success = (parks) => dispatch(receiveParks(parks));
-  const failure = (errors) => dispatch(receiveErrors(errors));
+const success = (parks) => dispatch(receiveParks(parks));
+const failure = (errors) => dispatch(receiveErrors(errors));
+
+export const createPark = (park) => dispatch => {
+  ParkUtil.createPark(park)
+    .then(success, failure);
+};
+
+export const fetchParks = () => dispatch => {
   ParkUtil.fetchParks()
     .then(success, failure);
 };
