@@ -13,7 +13,7 @@ class ParkMap extends React.Component {
   }
 
   componentDidUpdate() {
-    this.markerManager.updateMarkers();
+    this.markerManager.updateMarkers(this.props.parks);
   }
 
   render() {

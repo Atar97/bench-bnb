@@ -477,7 +477,7 @@ function (_React$Component) {
   }, {
     key: "componentDidUpdate",
     value: function componentDidUpdate() {
-      this.markerManager.updateMarkers();
+      this.markerManager.updateMarkers(this.props.parks);
     }
   }, {
     key: "render",
@@ -1193,7 +1193,31 @@ function () {
   _createClass(MarkerManager, [{
     key: "updateMarkers",
     value: function updateMarkers(parks) {
-      console.log('time to update');
+      var parkArray = Object.values(parks);
+      var markers = this.markers;
+      var map = this.map;
+      parkArray.forEach(function (park) {
+        markers[park.id] = new google.maps.Marker({
+          position: {
+            lat: park.lat,
+            lng: park.lng
+          },
+          map: map,
+          title: toString(park.id)
+        });
+      });
+    }
+  }, {
+    key: "createMarkerfromPark",
+    value: function createMarkerfromPark(park) {
+      this.markers[park.id] = new google.maps.Marker({
+        position: {
+          lat: park.lat,
+          lng: park.lng
+        },
+        map: this.map,
+        title: park.id
+      });
     }
   }]);
 

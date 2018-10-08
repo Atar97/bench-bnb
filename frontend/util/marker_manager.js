@@ -5,6 +5,24 @@ export default class MarkerManager {
   }
 
   updateMarkers(parks) {
-    console.log('time to update');
+    const parkArray = Object.values(parks);
+    const markers = this.markers;
+    const map = this.map;
+    parkArray.forEach(park => {
+      markers[park.id] = new google.maps.Marker({
+        position: {lat: park.lat, lng: park.lng},
+        map,
+        title: toString(park.id)
+      });
+    });
   }
+
+  createMarkerfromPark(park) {
+    this.markers[park.id] = new google.maps.Marker({
+      position: {lat: park.lat, lng: park.lng},
+      map: this.map,
+      title: park.id
+    });
+  }
+
 }
