@@ -5,6 +5,7 @@ import {AuthRoute} from '../util/route_util';
 import GreetingContainer from './greeting/greeting_container';
 import {SignupForm, LoginForm} from './sign_in/session_forms_container';
 import SearchContainer from './map/search_container';
+import ParkForm from './park/park_form';
 
 const App = () => {
   return (
@@ -19,6 +20,7 @@ const App = () => {
       <AuthRoute path="/login" component={LoginForm} />
       <AuthRoute path="/signup" component={SignupForm} />
       <Route exact path="/" component={SearchContainer} />
+      <Route path="/parks/new" component={ParkForm} />
 
     </div>
   );

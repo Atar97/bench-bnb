@@ -23,11 +23,11 @@ const success = (parks) => dispatch(receiveParks(parks));
 const failure = (errors) => dispatch(receiveErrors(errors));
 
 export const createPark = (park) => dispatch => {
-  ParkUtil.createPark(park)
+  return ParkUtil.createPark(park)
     .then(res => dispatch(receivePark(res)), failure);
 };
 
 export const fetchParks = (bounds) => dispatch => {
-  ParkUtil.fetchParks(bounds)
+  return ParkUtil.fetchParks(bounds)
     .then(success, failure);
 };
