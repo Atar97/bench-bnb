@@ -13,3 +13,7 @@
  *= require_tree .
  *= require_self
  */
+
+ .in-progress {
+   border: 1px solid red;
+ }
