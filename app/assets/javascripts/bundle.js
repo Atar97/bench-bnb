@@ -90,25 +90,34 @@
 /*!******************************************!*\
   !*** ./frontend/actions/park_actions.js ***!
   \******************************************/
-/*! exports provided: RECEIVE_PARKS, RECEIVE_PARK_ERRORS, receiveParks, receiveErrors, createPark, fetchParks */
+/*! exports provided: RECEIVE_PARKS, RECEIVE_PARK, RECEIVE_PARK_ERRORS, receiveParks, receivePark, receiveErrors, createPark, fetchParks */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_PARKS", function() { return RECEIVE_PARKS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_PARK", function() { return RECEIVE_PARK; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_PARK_ERRORS", function() { return RECEIVE_PARK_ERRORS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveParks", function() { return receiveParks; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receivePark", function() { return receivePark; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveErrors", function() { return receiveErrors; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createPark", function() { return createPark; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchParks", function() { return fetchParks; });
 /* harmony import */ var _util_park_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/park_api_util */ "./frontend/util/park_api_util.js");
 
 var RECEIVE_PARKS = 'RECEIVE_PARKS';
+var RECEIVE_PARK = 'RECEIVE_PARK';
 var RECEIVE_PARK_ERRORS = 'RECEIVE_PARK_ERRORS';
 var receiveParks = function receiveParks(parks) {
   return {
     type: RECEIVE_PARKS,
     parks: parks
+  };
+};
+var receivePark = function receivePark(park) {
+  return {
+    type: RECEIVE_PARK,
+    park: park
   };
 };
 var receiveErrors = function receiveErrors(errors) {
@@ -128,7 +137,9 @@ var failure = function failure(errors) {
 
 var createPark = function createPark(park) {
   return function (dispatch) {
-    _util_park_api_util__WEBPACK_IMPORTED_MODULE_0__["createPark"](park).then(success, failure);
+    _util_park_api_util__WEBPACK_IMPORTED_MODULE_0__["createPark"](park).then(function (res) {
+      return dispatch(receivePark(res));
+    }, failure);
   };
 };
 var fetchParks = function fetchParks() {
@@ -417,6 +428,7 @@ var mapDtP = function mapDtP(dispatch) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _util_marker_manager__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../util/marker_manager */ "./frontend/util/marker_manager.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -437,6 +449,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
+
 var ParkMap =
 /*#__PURE__*/
 function (_React$Component) {
@@ -449,11 +462,33 @@ function (_React$Component) {
   }
 
   _createClass(ParkMap, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var mapOptions = {
+        center: {
+          lat: 37.7758,
+          lng: -122.435
+        },
+        zoom: 12
+      };
+      this.map = new google.maps.Map(this.mapNode, mapOptions);
+      this.markerManager = new _util_marker_manager__WEBPACK_IMPORTED_MODULE_1__["default"](this.map);
+    }
+  }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate() {
+      this.markerManager.updateMarkers();
+    }
+  }, {
     key: "render",
     value: function render() {
+      var _this = this;
+
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         id: "map-container",
-        ref: "map"
+        ref: function ref(map) {
+          return _this.mapNode = map;
+        }
       });
     }
   }]);
@@ -478,6 +513,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _park_map__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./park_map */ "./frontend/components/map/park_map.jsx");
 /* harmony import */ var _park_park_index_container__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../park/park_index_container */ "./frontend/components/park/park_index_container.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -500,6 +536,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
+
 var SearchContainer =
 /*#__PURE__*/
 function (_React$Component) {
@@ -514,14 +551,22 @@ function (_React$Component) {
   _createClass(SearchContainer, [{
     key: "render",
     value: function render() {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_park_map__WEBPACK_IMPORTED_MODULE_1__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_park_park_index_container__WEBPACK_IMPORTED_MODULE_2__["default"], null));
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_park_map__WEBPACK_IMPORTED_MODULE_1__["default"], {
+        parks: this.props.parks
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_park_park_index_container__WEBPACK_IMPORTED_MODULE_2__["default"], null));
     }
   }]);
 
   return SearchContainer;
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
-/* harmony default export */ __webpack_exports__["default"] = (SearchContainer);
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    parks: state.entities.parks
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_3__["connect"])(mapStateToProps)(SearchContainer));
 
 /***/ }),
 
@@ -859,19 +904,19 @@ var mapLoginState = function mapLoginState(_ref) {
   };
 };
 
-var mapSignupState = function mapSignupState(_ref2) {
-  var sessionErrors = _ref2.errors.sessionErrors;
-  return {
-    errors: Object.values(sessionErrors),
-    formType: 'Sign Up'
-  };
-};
-
 var mapLoginDispatch = function mapLoginDispatch(dispatch) {
   return {
     processForm: function processForm(user) {
       return dispatch(Object(_actions_session_actions__WEBPACK_IMPORTED_MODULE_2__["login"])(user));
     }
+  };
+};
+
+var mapSignupState = function mapSignupState(_ref2) {
+  var sessionErrors = _ref2.errors.sessionErrors;
+  return {
+    errors: Object.values(sessionErrors),
+    formType: 'Sign Up'
   };
 };
 
@@ -929,6 +974,10 @@ __webpack_require__.r(__webpack_exports__);
   switch (action.type) {
     case _actions_park_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_PARKS"]:
       return action.parks;
+
+    case _actions_park_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_PARK"]:
+      debugger;
+      return Object.assign({}, state, action.park);
 
     default:
       return state;
@@ -1112,6 +1161,46 @@ var configureStore = function configureStore(preloadedState) {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (configureStore);
+
+/***/ }),
+
+/***/ "./frontend/util/marker_manager.js":
+/*!*****************************************!*\
+  !*** ./frontend/util/marker_manager.js ***!
+  \*****************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return MarkerManager; });
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var MarkerManager =
+/*#__PURE__*/
+function () {
+  function MarkerManager(map) {
+    _classCallCheck(this, MarkerManager);
+
+    this.map = map;
+    this.markers = {};
+  }
+
+  _createClass(MarkerManager, [{
+    key: "updateMarkers",
+    value: function updateMarkers(parks) {
+      console.log('time to update');
+    }
+  }]);
+
+  return MarkerManager;
+}();
+
+
 
 /***/ }),
 

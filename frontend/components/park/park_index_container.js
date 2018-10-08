@@ -3,9 +3,11 @@ import ParkIndex from './park_index';
 import {allParks} from '../../reducers/selectors';
 import {fetchParks} from '../../actions/park_actions';
 
-const mapStateToProps = (state, ownProps) => ({
-  parks: allParks(state)
-});
+const mapStateToProps = (state, ownProps) => {
+  return {
+    parks: allParks(state)
+  };
+};
 
 const mapDispatchToProps = () => dispatch => ({
   fetchParks: () => dispatch(fetchParks())

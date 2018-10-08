@@ -1,4 +1,4 @@
-import {RECEIVE_PARKS} from '../../actions/park_actions';
+import {RECEIVE_PARKS, RECEIVE_PARK} from '../../actions/park_actions';
 
 export default (state = {}, action) => {
   Object.freeze(state);
@@ -6,6 +6,9 @@ export default (state = {}, action) => {
   switch (action.type) {
     case RECEIVE_PARKS:
       return action.parks;
+    case RECEIVE_PARK:
+    debugger;
+      return Object.assign({}, state, action.park);
     default:
       return state;
   }

@@ -7,13 +7,13 @@ const mapLoginState = ({errors: {sessionErrors}}) => ({
   formType: 'Login'
 });
 
+const mapLoginDispatch = dispatch => ({
+  processForm: (user) => dispatch(login(user))
+});
+
 const mapSignupState = ({errors: {sessionErrors}}) => ({
   errors: Object.values(sessionErrors),
   formType: 'Sign Up'
-});
-
-const mapLoginDispatch = dispatch => ({
-  processForm: (user) => dispatch(login(user))
 });
 
 const mapSignupDispatch = dispatch => ({
