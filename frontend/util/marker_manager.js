@@ -6,14 +6,25 @@ export default class MarkerManager {
 
   updateMarkers(parks) {
     const parkArray = Object.values(parks);
+    this.removeMarkers(parks);
     const markers = this.markers;
     const map = this.map;
+    debugger;
     parkArray.forEach(park => {
       markers[park.id] = new google.maps.Marker({
         position: {lat: park.lat, lng: park.lng},
         map,
-        title: toString(park.id)
+        title: park.id.toString()
       });
+    });
+  }
+
+  removeMarkers(parks) {
+    Object.values(this.markers).forEach(marker => {
+      debugger;
+      if (!(parks[marker.title])) {
+        marker.setMap(null);
+      }
     });
   }
 

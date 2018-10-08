@@ -28,7 +28,6 @@ export const createPark = (park) => dispatch => {
 };
 
 export const fetchParks = (bounds) => dispatch => {
-  debugger;
   ParkUtil.fetchParks(bounds)
     .then(success, failure);
 };

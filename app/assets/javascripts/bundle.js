@@ -174,7 +174,6 @@ var createPark = function createPark(park) {
 };
 var fetchParks = function fetchParks(bounds) {
   return function (dispatch) {
-    debugger;
     _util_park_api_util__WEBPACK_IMPORTED_MODULE_0__["fetchParks"](bounds).then(success, failure);
   };
 };
@@ -1318,8 +1317,10 @@ function () {
     key: "updateMarkers",
     value: function updateMarkers(parks) {
       var parkArray = Object.values(parks);
+      this.removeMarkers(parks);
       var markers = this.markers;
       var map = this.map;
+      debugger;
       parkArray.forEach(function (park) {
         markers[park.id] = new google.maps.Marker({
           position: {
@@ -1327,8 +1328,19 @@ function () {
             lng: park.lng
           },
           map: map,
-          title: toString(park.id)
+          title: park.id.toString()
         });
+      });
+    }
+  }, {
+    key: "removeMarkers",
+    value: function removeMarkers(parks) {
+      Object.values(this.markers).forEach(function (marker) {
+        debugger;
+
+        if (!parks[marker.title]) {
+          marker.setMap(null);
+        }
       });
     }
   }, {
