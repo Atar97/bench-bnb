@@ -15,10 +15,10 @@ class Park < ApplicationRecord
   validates :description, length: {maximum: 140}
 
   def self.in_bounds(bounds)
-    Park.where("lat < ? AND lat > ?",
-      bounds['southWest']['lat'].to_i, bounds['northEast']['lat'].to_i)
-      .where("lng < ? AND lng < ?",
-        bounds['southWest']['lng'].to_i, bounds['northEast']['lng'].to_i)
+    Park.where("lat > ? AND lat < ?",
+      bounds['southWest']['lat'].to_f, bounds['northEast']['lat'].to_f)
+      .where("lng > ? AND lng < ?",
+        bounds['southWest']['lng'].to_f, bounds['northEast']['lng'].to_f)
   end
 
 end

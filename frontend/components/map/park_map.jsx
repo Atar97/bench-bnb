@@ -28,7 +28,7 @@ class ParkMap extends React.Component {
       northEast,
       southWest
     };
-    this.props.updateBounds(boundsParams);
+    this.props.updateFilter(boundsParams);
   }
 
   componentDidUpdate() {

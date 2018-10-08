@@ -90,13 +90,14 @@
 /*!********************************************!*\
   !*** ./frontend/actions/filter_actions.js ***!
   \********************************************/
-/*! exports provided: UPDATE_BOUNDS, updateBounds */
+/*! exports provided: UPDATE_BOUNDS, updateBounds, updateFilter */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UPDATE_BOUNDS", function() { return UPDATE_BOUNDS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateBounds", function() { return updateBounds; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateFilter", function() { return updateFilter; });
 /* harmony import */ var _park_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./park_actions */ "./frontend/actions/park_actions.js");
 var UPDATE_BOUNDS = 'UPDATE_BOUNDS';
 
@@ -105,7 +106,13 @@ var updateBounds = function updateBounds(bounds) {
     type: UPDATE_BOUNDS,
     bounds: bounds
   };
-}; // export const updateFilter =
+};
+var updateFilter = function updateFilter(bounds) {
+  return function (dispatch, getState) {
+    dispatch(updateBounds(bounds));
+    dispatch(Object(_park_actions__WEBPACK_IMPORTED_MODULE_0__["fetchParks"])(bounds));
+  };
+};
 
 /***/ }),
 
@@ -167,6 +174,7 @@ var createPark = function createPark(park) {
 };
 var fetchParks = function fetchParks(bounds) {
   return function (dispatch) {
+    debugger;
     _util_park_api_util__WEBPACK_IMPORTED_MODULE_0__["fetchParks"](bounds).then(success, failure);
   };
 };
@@ -514,7 +522,7 @@ function (_React$Component) {
         northEast: northEast,
         southWest: southWest
       };
-      this.props.updateBounds(boundsParams);
+      this.props.updateFilter(boundsParams);
     }
   }, {
     key: "componentDidUpdate",
@@ -597,7 +605,8 @@ function (_React$Component) {
     value: function render() {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_park_map__WEBPACK_IMPORTED_MODULE_2__["default"], {
         parks: this.props.parks,
-        updateBounds: this.props.updateBounds
+        updateBounds: this.props.updateBounds,
+        updateFilter: this.props.updateFilter
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_park_park_index_container__WEBPACK_IMPORTED_MODULE_3__["default"], null));
     }
   }]);
@@ -615,6 +624,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     updateBounds: function updateBounds(bounds) {
       return dispatch(Object(_actions_filter_actions__WEBPACK_IMPORTED_MODULE_4__["updateBounds"])(bounds));
+    },
+    updateFilter: function updateFilter(bounds) {
+      return dispatch(Object(_actions_filter_actions__WEBPACK_IMPORTED_MODULE_4__["updateFilter"])(bounds));
     }
   };
 };

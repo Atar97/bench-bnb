@@ -6,4 +6,7 @@ export const updateBounds = (bounds) => ({
   bounds
 });
 
-// export const updateFilter = 
+export const updateFilter = bounds => (dispatch, getState) => {
+  dispatch(updateBounds(bounds));
+  dispatch(fetchParks(bounds));
+};

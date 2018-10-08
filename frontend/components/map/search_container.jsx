@@ -3,14 +3,15 @@ import {connect} from 'react-redux';
 
 import ParkMap from './park_map';
 import ParkIndexContainer from '../park/park_index_container';
-import {updateBounds} from '../../actions/filter_actions';
+import {updateBounds, updateFilter} from '../../actions/filter_actions';
 
 class SearchContainer extends React.Component {
   render() {
     return (
       <div>
         <ParkMap parks={this.props.parks}
-           updateBounds={this.props.updateBounds}/>
+           updateBounds={this.props.updateBounds}
+           updateFilter={this.props.updateFilter}/>
          <ParkIndexContainer />
       </div>
     );
@@ -24,7 +25,8 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  updateBounds: (bounds) => dispatch(updateBounds(bounds))
+  updateBounds: (bounds) => dispatch(updateBounds(bounds)),
+  updateFilter: (bounds) => dispatch(updateFilter(bounds))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchContainer);
