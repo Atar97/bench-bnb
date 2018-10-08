@@ -5,7 +5,8 @@ import {fetchParks} from '../../actions/park_actions';
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    parks: allParks(state)
+    parks: allParks(state),
+    bounds: state.ui.filters
   };
 };
 

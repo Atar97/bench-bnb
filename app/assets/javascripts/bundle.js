@@ -86,6 +86,29 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "./frontend/actions/filter_actions.js":
+/*!********************************************!*\
+  !*** ./frontend/actions/filter_actions.js ***!
+  \********************************************/
+/*! exports provided: UPDATE_BOUNDS, updateBounds */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UPDATE_BOUNDS", function() { return UPDATE_BOUNDS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateBounds", function() { return updateBounds; });
+/* harmony import */ var _park_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./park_actions */ "./frontend/actions/park_actions.js");
+var UPDATE_BOUNDS = 'UPDATE_BOUNDS';
+
+var updateBounds = function updateBounds(bounds) {
+  return {
+    type: UPDATE_BOUNDS,
+    bounds: bounds
+  };
+}; // export const updateFilter =
+
+/***/ }),
+
 /***/ "./frontend/actions/park_actions.js":
 /*!******************************************!*\
   !*** ./frontend/actions/park_actions.js ***!
@@ -144,7 +167,6 @@ var createPark = function createPark(park) {
 };
 var fetchParks = function fetchParks(bounds) {
   return function (dispatch) {
-    debugger;
     _util_park_api_util__WEBPACK_IMPORTED_MODULE_0__["fetchParks"](bounds).then(success, failure);
   };
 };
@@ -474,6 +496,25 @@ function (_React$Component) {
       };
       this.map = new google.maps.Map(this.mapNode, mapOptions);
       this.markerManager = new _util_marker_manager__WEBPACK_IMPORTED_MODULE_1__["default"](this.map);
+      this.map.addListener('idle', this.handleIdleMap.bind(this));
+    }
+  }, {
+    key: "handleIdleMap",
+    value: function handleIdleMap() {
+      var bounds = this.map.getBounds();
+      var northEast = {
+        lat: bounds.getNorthEast().lat(),
+        lng: bounds.getNorthEast().lng()
+      };
+      var southWest = {
+        lat: bounds.getSouthWest().lat(),
+        lng: bounds.getSouthWest().lng()
+      };
+      var boundsParams = {
+        northEast: northEast,
+        southWest: southWest
+      };
+      this.props.updateBounds(boundsParams);
     }
   }, {
     key: "componentDidUpdate",
@@ -512,9 +553,10 @@ function (_React$Component) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _park_map__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./park_map */ "./frontend/components/map/park_map.jsx");
-/* harmony import */ var _park_park_index_container__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../park/park_index_container */ "./frontend/components/park/park_index_container.js");
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _park_map__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./park_map */ "./frontend/components/map/park_map.jsx");
+/* harmony import */ var _park_park_index_container__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../park/park_index_container */ "./frontend/components/park/park_index_container.js");
+/* harmony import */ var _actions_filter_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../actions/filter_actions */ "./frontend/actions/filter_actions.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -538,6 +580,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
+
 var SearchContainer =
 /*#__PURE__*/
 function (_React$Component) {
@@ -552,9 +595,10 @@ function (_React$Component) {
   _createClass(SearchContainer, [{
     key: "render",
     value: function render() {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_park_map__WEBPACK_IMPORTED_MODULE_1__["default"], {
-        parks: this.props.parks
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_park_park_index_container__WEBPACK_IMPORTED_MODULE_2__["default"], null));
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_park_map__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        parks: this.props.parks,
+        updateBounds: this.props.updateBounds
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_park_park_index_container__WEBPACK_IMPORTED_MODULE_3__["default"], null));
     }
   }]);
 
@@ -567,7 +611,15 @@ var mapStateToProps = function mapStateToProps(state) {
   };
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_3__["connect"])(mapStateToProps)(SearchContainer));
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    updateBounds: function updateBounds(bounds) {
+      return dispatch(Object(_actions_filter_actions__WEBPACK_IMPORTED_MODULE_4__["updateBounds"])(bounds));
+    }
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStateToProps, mapDispatchToProps)(SearchContainer));
 
 /***/ }),
 
@@ -620,12 +672,12 @@ function (_React$Component) {
     value: function componentDidMount() {
       var defaultBounds = {
         northEast: {
-          "lat": "37",
-          "lng": "-122"
+          'lat': '37',
+          'lng': '-122'
         },
         southWest: {
-          "lat": "38",
-          "lng": "-121"
+          'lat': '38',
+          'lng': '-121'
         }
       };
       this.props.fetchParks(defaultBounds);
@@ -669,7 +721,8 @@ __webpack_require__.r(__webpack_exports__);
 
 var mapStateToProps = function mapStateToProps(state, ownProps) {
   return {
-    parks: Object(_reducers_selectors__WEBPACK_IMPORTED_MODULE_2__["allParks"])(state)
+    parks: Object(_reducers_selectors__WEBPACK_IMPORTED_MODULE_2__["allParks"])(state),
+    bounds: state.ui.filters
   };
 };
 
@@ -987,7 +1040,6 @@ __webpack_require__.r(__webpack_exports__);
       return action.parks;
 
     case _actions_park_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_PARK"]:
-      debugger;
       return Object.assign({}, state, action.park);
 
     default:
@@ -1075,6 +1127,33 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./frontend/reducers/filter_reducer.js":
+/*!*********************************************!*\
+  !*** ./frontend/reducers/filter_reducer.js ***!
+  \*********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _actions_filter_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/filter_actions */ "./frontend/actions/filter_actions.js");
+
+/* harmony default export */ __webpack_exports__["default"] = (function () {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+  Object.freeze(state);
+
+  switch (action.type) {
+    case _actions_filter_actions__WEBPACK_IMPORTED_MODULE_0__["UPDATE_BOUNDS"]:
+      return action.bounds;
+
+    default:
+      return state;
+  }
+});
+
+/***/ }),
+
 /***/ "./frontend/reducers/root_reducer.js":
 /*!*******************************************!*\
   !*** ./frontend/reducers/root_reducer.js ***!
@@ -1088,6 +1167,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _entities_entities_reducer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./entities/entities_reducer */ "./frontend/reducers/entities/entities_reducer.js");
 /* harmony import */ var _session_reducer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./session_reducer */ "./frontend/reducers/session_reducer.js");
 /* harmony import */ var _errors_errors_reducer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./errors/errors_reducer */ "./frontend/reducers/errors/errors_reducer.js");
+/* harmony import */ var _ui_reducer__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./ui_reducer */ "./frontend/reducers/ui_reducer.js");
+
 
 
 
@@ -1095,7 +1176,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = (Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])({
   entities: _entities_entities_reducer__WEBPACK_IMPORTED_MODULE_1__["default"],
   session: _session_reducer__WEBPACK_IMPORTED_MODULE_2__["default"],
-  errors: _errors_errors_reducer__WEBPACK_IMPORTED_MODULE_3__["default"]
+  errors: _errors_errors_reducer__WEBPACK_IMPORTED_MODULE_3__["default"],
+  ui: _ui_reducer__WEBPACK_IMPORTED_MODULE_4__["default"]
 }));
 
 /***/ }),
@@ -1145,6 +1227,25 @@ __webpack_require__.r(__webpack_exports__);
       return state;
   }
 });
+
+/***/ }),
+
+/***/ "./frontend/reducers/ui_reducer.js":
+/*!*****************************************!*\
+  !*** ./frontend/reducers/ui_reducer.js ***!
+  \*****************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
+/* harmony import */ var _filter_reducer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./filter_reducer */ "./frontend/reducers/filter_reducer.js");
+
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])({
+  filters: _filter_reducer__WEBPACK_IMPORTED_MODULE_1__["default"]
+}));
 
 /***/ }),
 
@@ -1251,7 +1352,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchParks", function() { return fetchParks; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createPark", function() { return createPark; });
 var fetchParks = function fetchParks(bounds) {
-  debugger;
   return $.ajax({
     method: 'GET',
     url: '/api/parks',

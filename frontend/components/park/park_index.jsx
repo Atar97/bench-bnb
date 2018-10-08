@@ -4,10 +4,10 @@ import ParkIndexItem from './park_index_item';
 class ParkIndex extends React.Component {
 
   componentDidMount() {
-    const defaultBounds = {
-        northEast: {"lat": "37", "lng": "-122"},
-        southWest: {"lat": "38", "lng": "-121"}
-      }
+    let defaultBounds = {
+        northEast: {'lat': '37', 'lng': '-122'},
+        southWest: {'lat': '38', 'lng': '-121'}
+      };
     this.props.fetchParks(defaultBounds);
   }
 

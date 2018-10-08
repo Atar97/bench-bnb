@@ -1,5 +1,4 @@
 export const fetchParks = (bounds) => {
-  debugger;
   return $.ajax({
     method: 'GET',
     url: '/api/parks',
