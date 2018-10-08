@@ -1,9 +1,9 @@
 import React from 'react';
 
 const ParkIndexItem = ({park}) => (
-  <li>
+  <li className='park-index-item'>
     <h3>{park.description}</h3>
-    <p>{park.lat} N {park.lng} W</p>
+    <img src={park.image} />
   </li>
 );
 

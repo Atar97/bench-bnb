@@ -14,7 +14,7 @@ class ParkIndex extends React.Component {
   render() {
     return (
       <div>
-        <ul>
+        <ul className='park-index-list'>
           {this.props.parks.map(park => {
             return <ParkIndexItem key={park.id} park={park} />;
           })}

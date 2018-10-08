@@ -8,7 +8,7 @@ import {updateBounds, updateFilter} from '../../actions/filter_actions';
 class SearchContainer extends React.Component {
   render() {
     return (
-      <div>
+      <div className='map-and-index-container'>
         <ParkMap parks={this.props.parks}
            updateBounds={this.props.updateBounds}
            updateFilter={this.props.updateFilter}/>

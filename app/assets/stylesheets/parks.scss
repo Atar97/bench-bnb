@@ -3,6 +3,45 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 #map-container {
-  width: 500px;
-  height: 500px;
+  width: 600px;
+  height: 800px;
+  margin: 20px;
+  // border: 1px solid #349CEE;
+  border-radius: 5px;
+  box-shadow: 2px 2px 5px gray;
+  padding: 5px;
+}
+
+.map-and-index-container {
+  display: flex;
+  margin: 0 auto;
+  margin-bottom: 50px;
+  flex-direction: row;
+  justify-content: space-around;
+  padding: 5px;
+  background: rgba(6, 179, 35, 0.3);
+}
+
+.park-index-list {
+  background-color: #349CEE;
+  border-radius: 10px;
+  padding: 5px;
+  box-shadow: 2px 2px 5px gray;
+  margin-right: 100px;
+  margin-top: 20px;
+  color: white;
+  text-shadow: 2px 2px gray;
+  font-size: 22px;
+  height: 800px;
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+  width: 350px;
+}
+
+.park-index-item {
+  padding: 3px;
+  border: 1px solid white;
+  margin: 5px;
+  border-radius: 5px;
 }

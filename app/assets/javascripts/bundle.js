@@ -620,7 +620,9 @@ function (_React$Component) {
   _createClass(SearchContainer, [{
     key: "render",
     value: function render() {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_park_map__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "map-and-index-container"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_park_map__WEBPACK_IMPORTED_MODULE_2__["default"], {
         parks: this.props.parks,
         updateBounds: this.props.updateBounds,
         updateFilter: this.props.updateFilter
@@ -839,7 +841,9 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, this.props.parks.map(function (park) {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+        className: "park-index-list"
+      }, this.props.parks.map(function (park) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_park_index_item__WEBPACK_IMPORTED_MODULE_1__["default"], {
           key: park.id,
           park: park
@@ -909,7 +913,11 @@ __webpack_require__.r(__webpack_exports__);
 
 var ParkIndexItem = function ParkIndexItem(_ref) {
   var park = _ref.park;
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, park.description), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, park.lat, " N ", park.lng, " W"));
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+    className: "park-index-item"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, park.description), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+    src: park.image
+  }));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (ParkIndexItem);
