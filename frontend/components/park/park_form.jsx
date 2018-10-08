@@ -1,5 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import {withRouter} from 'react-router-dom';
 
 import {createPark} from '../../actions/park_actions';
 
@@ -10,8 +11,8 @@ class ParkForm extends React.Component {
     this.state = {
       description: '',
       image: '',
-      lat: '',
-      lng: ''
+      lat: this.props.lat,
+      lng: this.props.lng
     };
     this.handleInput = this.handleInput.bind(this);
   }
@@ -21,14 +22,6 @@ class ParkForm extends React.Component {
         <label>Description:
           <input onChange={this.handleInput('description')}
             value={this.state.description}></input>
-        </label>
-        <label>Lattitude:
-          <input onChange={this.handleInput('lat')}
-            value={this.state.lat}></input>
-        </label>
-        <label>Longitude:
-          <input onChange={this.handleInput('lng')}
-            value={this.state.lng}></input>
         </label>
         <label>Image (optional):
           <input onChange={this.handleInput('image')}
@@ -49,7 +42,7 @@ class ParkForm extends React.Component {
         lat: '',
         lng: ''
       }
-    ));
+    )).then(this.props.history.push({pathname: '/'}));
   }
 
   handleInput(type) {
@@ -63,4 +56,11 @@ const mapDispatchToProps = () => dispatch => ({
   createPark: park => dispatch(createPark(park))
 });
 
-export default connect(null, mapDispatchToProps)(ParkForm);
+const mapStateToProps = (state, {location}) => ({
+  lat: new URLSearchParams(location.search).get('lat'),
+  lng: new URLSearchParams(location.search).get('lng')
+});
+
+export default withRouter(connect(
+  mapStateToProps, mapDispatchToProps)
+  (ParkForm));

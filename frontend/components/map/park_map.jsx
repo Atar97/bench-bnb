@@ -1,4 +1,6 @@
 import React from 'react';
+import {withRouter} from 'react-router-dom';
+
 import MarkerManager from '../../util/marker_manager';
 
 class ParkMap extends React.Component {
@@ -11,6 +13,7 @@ class ParkMap extends React.Component {
     this.map = new google.maps.Map(this.mapNode, mapOptions);
     this.markerManager = new MarkerManager(this.map);
     this.map.addListener('idle', this.handleIdleMap.bind(this));
+    this.map.addListener('rightclick', this.handleClick.bind(this));
   }
 
   handleIdleMap() {
@@ -31,6 +34,15 @@ class ParkMap extends React.Component {
     this.props.updateFilter(boundsParams);
   }
 
+  handleClick(event) {
+    const lat = event.latLng.lat();
+    const lng = event.latLng.lng();
+    this.props.history.push({
+      pathname: 'parks/new',
+      search: `lat=${lat}&lng=${lng}`
+    });
+  }
+
   componentDidUpdate() {
     this.markerManager.updateMarkers(this.props.parks);
   }
@@ -43,4 +55,4 @@ class ParkMap extends React.Component {
   }
 }
 
-export default ParkMap;
+export default withRouter(ParkMap);

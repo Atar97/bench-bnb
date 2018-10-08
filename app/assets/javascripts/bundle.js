@@ -463,7 +463,8 @@ var mapDtP = function mapDtP(dispatch) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _util_marker_manager__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../util/marker_manager */ "./frontend/util/marker_manager.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
+/* harmony import */ var _util_marker_manager__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../util/marker_manager */ "./frontend/util/marker_manager.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -481,6 +482,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
 
 
 
@@ -507,8 +509,9 @@ function (_React$Component) {
         zoom: 12
       };
       this.map = new google.maps.Map(this.mapNode, mapOptions);
-      this.markerManager = new _util_marker_manager__WEBPACK_IMPORTED_MODULE_1__["default"](this.map);
+      this.markerManager = new _util_marker_manager__WEBPACK_IMPORTED_MODULE_2__["default"](this.map);
       this.map.addListener('idle', this.handleIdleMap.bind(this));
+      this.map.addListener('rightclick', this.handleClick.bind(this));
     }
   }, {
     key: "handleIdleMap",
@@ -527,6 +530,16 @@ function (_React$Component) {
         southWest: southWest
       };
       this.props.updateFilter(boundsParams);
+    }
+  }, {
+    key: "handleClick",
+    value: function handleClick(event) {
+      var lat = event.latLng.lat();
+      var lng = event.latLng.lng();
+      this.props.history.push({
+        pathname: 'parks/new',
+        search: "lat=".concat(lat, "&lng=").concat(lng)
+      });
     }
   }, {
     key: "componentDidUpdate",
@@ -550,7 +563,7 @@ function (_React$Component) {
   return ParkMap;
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
-/* harmony default export */ __webpack_exports__["default"] = (ParkMap);
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["withRouter"])(ParkMap));
 
 /***/ }),
 
@@ -651,7 +664,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var _actions_park_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/park_actions */ "./frontend/actions/park_actions.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
+/* harmony import */ var _actions_park_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/park_actions */ "./frontend/actions/park_actions.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -676,6 +690,7 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 
 
 
+
 var ParkForm =
 /*#__PURE__*/
 function (_React$Component) {
@@ -690,8 +705,8 @@ function (_React$Component) {
     _this.state = {
       description: '',
       image: '',
-      lat: '',
-      lng: ''
+      lat: _this.props.lat,
+      lng: _this.props.lng
     };
     _this.handleInput = _this.handleInput.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     return _this;
@@ -705,12 +720,6 @@ function (_React$Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Description:", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         onChange: this.handleInput('description'),
         value: this.state.description
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Lattitude:", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-        onChange: this.handleInput('lat'),
-        value: this.state.lat
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Longitude:", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-        onChange: this.handleInput('lng'),
-        value: this.state.lng
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Image (optional):", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         onChange: this.handleInput('image'),
         value: this.state.image
@@ -728,6 +737,8 @@ function (_React$Component) {
         image: '',
         lat: '',
         lng: ''
+      })).then(this.props.history.push({
+        pathname: '/'
       }));
     }
   }, {
@@ -748,13 +759,21 @@ var mapDispatchToProps = function mapDispatchToProps() {
   return function (dispatch) {
     return {
       createPark: function createPark(park) {
-        return dispatch(Object(_actions_park_actions__WEBPACK_IMPORTED_MODULE_2__["createPark"])(park));
+        return dispatch(Object(_actions_park_actions__WEBPACK_IMPORTED_MODULE_3__["createPark"])(park));
       }
     };
   };
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(null, mapDispatchToProps)(ParkForm));
+var mapStateToProps = function mapStateToProps(state, _ref) {
+  var location = _ref.location;
+  return {
+    lat: new URLSearchParams(location.search).get('lat'),
+    lng: new URLSearchParams(location.search).get('lng')
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["withRouter"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStateToProps, mapDispatchToProps)(ParkForm)));
 
 /***/ }),
 
