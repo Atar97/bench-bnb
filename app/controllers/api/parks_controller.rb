@@ -1,6 +1,7 @@
 class Api::ParksController < ApplicationController
   def index
-    @parks = Park.all
+    p params
+    @parks = Park.in_bounds(params[:bounds])
   end
 
   def create

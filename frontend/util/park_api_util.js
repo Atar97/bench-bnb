@@ -1,7 +1,9 @@
-export const fetchParks = () => {
+export const fetchParks = (bounds) => {
+  debugger;
   return $.ajax({
     method: 'GET',
-    url: '/api/parks'
+    url: '/api/parks',
+    data: {bounds}
   });
 };
 

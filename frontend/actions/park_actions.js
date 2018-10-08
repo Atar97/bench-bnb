@@ -27,7 +27,8 @@ export const createPark = (park) => dispatch => {
     .then(res => dispatch(receivePark(res)), failure);
 };
 
-export const fetchParks = () => dispatch => {
-  ParkUtil.fetchParks()
+export const fetchParks = (bounds) => dispatch => {
+  debugger;
+  ParkUtil.fetchParks(bounds)
     .then(success, failure);
 };

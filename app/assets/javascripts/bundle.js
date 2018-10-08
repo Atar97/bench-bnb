@@ -142,9 +142,10 @@ var createPark = function createPark(park) {
     }, failure);
   };
 };
-var fetchParks = function fetchParks() {
+var fetchParks = function fetchParks(bounds) {
   return function (dispatch) {
-    _util_park_api_util__WEBPACK_IMPORTED_MODULE_0__["fetchParks"]().then(success, failure);
+    debugger;
+    _util_park_api_util__WEBPACK_IMPORTED_MODULE_0__["fetchParks"](bounds).then(success, failure);
   };
 };
 
@@ -617,7 +618,17 @@ function (_React$Component) {
   _createClass(ParkIndex, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      this.props.fetchParks();
+      var defaultBounds = {
+        northEast: {
+          "lat": "37",
+          "lng": "-122"
+        },
+        southWest: {
+          "lat": "38",
+          "lng": "-121"
+        }
+      };
+      this.props.fetchParks(defaultBounds);
     }
   }, {
     key: "render",
@@ -665,8 +676,8 @@ var mapStateToProps = function mapStateToProps(state, ownProps) {
 var mapDispatchToProps = function mapDispatchToProps() {
   return function (dispatch) {
     return {
-      fetchParks: function fetchParks() {
-        return dispatch(Object(_actions_park_actions__WEBPACK_IMPORTED_MODULE_3__["fetchParks"])());
+      fetchParks: function fetchParks(park) {
+        return dispatch(Object(_actions_park_actions__WEBPACK_IMPORTED_MODULE_3__["fetchParks"])(park));
       }
     };
   };
@@ -1239,10 +1250,14 @@ function () {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchParks", function() { return fetchParks; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createPark", function() { return createPark; });
-var fetchParks = function fetchParks() {
+var fetchParks = function fetchParks(bounds) {
+  debugger;
   return $.ajax({
     method: 'GET',
-    url: '/api/parks'
+    url: '/api/parks',
+    data: {
+      bounds: bounds
+    }
   });
 };
 var createPark = function createPark(park) {
