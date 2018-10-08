@@ -1040,14 +1040,11 @@ function (_React$Component) {
     value: function handleSubmit(event) {
       event.preventDefault();
       var user = Object.assign({}, this.state);
-      this.setState({
-        username: '',
-        email: '',
-        password: ''
-      });
       this.props.processForm({
         user: user
-      });
+      }).then(this.props.history.push({
+        pathname: '/'
+      }));
     }
   }, {
     key: "handleChange",
