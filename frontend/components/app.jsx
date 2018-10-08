@@ -1,6 +1,6 @@
 import React from 'react';
 import {Route, Link, HashRouter} from 'react-router-dom';
-import {AuthRoute} from '../util/route_util';
+import {AuthRoute, ProtectedRoute} from '../util/route_util';
 
 import GreetingContainer from './greeting/greeting_container';
 import {SignupForm, LoginForm} from './sign_in/session_forms_container';
@@ -19,8 +19,8 @@ const App = () => {
 
       <AuthRoute path="/login" component={LoginForm} />
       <AuthRoute path="/signup" component={SignupForm} />
-      <Route exact path="/" component={SearchContainer} />
-      <Route path="/parks/new" component={ParkForm} />
+      <ProtectedRoute exact path="/" component={SearchContainer} />
+      <ProtectedRoute path="/parks/new" component={ParkForm} />
 
     </div>
   );
