@@ -24,16 +24,16 @@ class SessionForm extends React.Component {
   }
 
   render() {
-    let link = <Link to='/login'>Login</Link>;
 
-    if (this.props.formType === 'Login') {
-      link = <Link to='/signup'>Sign Up</Link>
-    }
+    const link = <Link className='button'
+        to='/signup'>Sign Up Instead</Link>;
+
     return (
-      <form onSubmit={this.handleSubmit.bind(this)}>
-        <h2>{this.props.formType}</h2>
+      <form className='form user-form'
+        onSubmit={this.handleSubmit.bind(this)}>
+        <h2>{this.props.formType}
+          {this.props.formType !== 'Sign Up' ? link : ''}</h2>
         <p>{this.props.errors}</p>
-        {link}
         <label>Email
           <input onChange={this.handleChange('email')}
             type='text' value={this.state.email}></input>
@@ -46,7 +46,7 @@ class SessionForm extends React.Component {
           <input onChange={this.handleChange('password')}
             type='password' value={this.state.password}></input>
         </label>
-        <button>Submit</button>
+          <button>{this.props.formType}</button>
       </form>
     );
   }

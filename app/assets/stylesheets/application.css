@@ -17,3 +17,26 @@
  .in-progress {
    border: 1px solid red;
  }
+
+.main-content {
+  display:flex;
+  justify-content: center;
+}
+
+button {
+  background-color: #06CBEA;
+}
+
+button:hover {
+  background-color: #05BDDA;
+  cursor: pointer;
+}
+
+.button {
+  background-color: #06CBEA;
+}
+
+.button:hover {
+  background-color: #05BDDA;
+  cursor: pointer;
+}

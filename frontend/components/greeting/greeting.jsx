@@ -14,17 +14,18 @@ class Greeting extends React.Component {
   render() {
     if (this.props.currentUser) {
       return (
-        <nav>
+        <nav className='user-nav'>
           <h2>Hello {this.props.currentUser.username}</h2>
-          <button onClick={this.handleClick.bind(this)}>Logout</button>
+          <button onClick={this.handleClick.bind(this)}
+            className='logout-button'>Logout</button>
         </nav>
 
       );
     } else {
       return (
-        <nav>
-          <Link to="/signup">Sign Up</Link>
-          <Link to="/login">Log In</Link>
+        <nav className='user-nav'>
+          <Link to="/signup" className='header-link'>Sign Up</Link>
+          <Link to="/login" className='header-link'>Log In</Link>
         </nav>
       );
     }

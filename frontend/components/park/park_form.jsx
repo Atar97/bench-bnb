@@ -18,7 +18,8 @@ class ParkForm extends React.Component {
   }
   render() {
     return (
-      <form onSubmit={this.handleSubmit.bind(this)}>
+      <form className='form park-form'
+        onSubmit={this.handleSubmit.bind(this)}>
         <label>Description:
           <input onChange={this.handleInput('description')}
             value={this.state.description}></input>

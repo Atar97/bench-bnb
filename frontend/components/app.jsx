@@ -10,18 +10,20 @@ import ParkForm from './park/park_form';
 const App = () => {
   return (
     <div>
-      <header>
-        <Link to="/" className="header-link">
-          <h1>Bench BnB</h1>
+      <header className='main-header'>
+        <Link to="/" className="header-link home-link">
+          <h1>Park Finder</h1>
         </Link>
         <GreetingContainer />
       </header>
+      <div className='main-content'>
+        <AuthRoute path="/login" component={LoginForm} />
+        <AuthRoute path="/signup" component={SignupForm} />
+        <ProtectedRoute exact path="/" component={SearchContainer} />
+        <ProtectedRoute path="/parks/new" component={ParkForm} />
+      </div>
 
-      <AuthRoute path="/login" component={LoginForm} />
-      <AuthRoute path="/signup" component={SignupForm} />
-      <ProtectedRoute exact path="/" component={SearchContainer} />
-      <ProtectedRoute path="/parks/new" component={ParkForm} />
-
+    <footer className='main-footer'>This is the footer</footer>
     </div>
   );
 };

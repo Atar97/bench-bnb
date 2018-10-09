@@ -4,7 +4,7 @@
 
 #map-container {
   width: 600px;
-  height: 800px;
+  height: 600px;
   margin: 20px;
   // border: 1px solid #349CEE;
   border-radius: 5px;
@@ -13,9 +13,9 @@
 }
 
 .map-and-index-container {
+  width: 100%;
   display: flex;
   margin: 0 auto;
-  margin-bottom: 50px;
   flex-direction: row;
   justify-content: space-around;
   padding: 5px;
@@ -32,7 +32,7 @@
   color: white;
   text-shadow: 2px 2px gray;
   font-size: 22px;
-  height: 800px;
+  height: 600px;
   display: flex;
   flex-direction: column;
   overflow-y: scroll;

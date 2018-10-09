@@ -1,0 +1,47 @@
+.main-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #349CEE;
+  padding: 10px;
+  height: 100px;
+}
+
+.main-footer {
+  padding-bottom: 30px;
+  padding-top: 30px;
+  display: flex;
+  background-color: #349CEE;
+  position: static;
+  bottom: 0;
+  width: 100%;
+}
+
+.header-link {
+  text-shadow: 1px 1px gray;
+  margin: 2px;
+  font-size: 22px;
+}
+
+.home-link {
+  margin-left: 30px;
+}
+
+.header-link:hover {
+  text-shadow: 1px 1px white;
+}
+
+.user-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-right: 20px;
+  width: 270px;
+}
+
+.logout-button {
+  font-size: 16px;
+  padding: 3px;
+  margin: 5px;
+  border-radius: 3px;
+}
