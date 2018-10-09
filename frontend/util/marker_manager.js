@@ -1,7 +1,8 @@
 export default class MarkerManager {
-  constructor(map) {
+  constructor(map, selectedId) {
     this.map = map;
     this.markers = {};
+    this.selectedId = selectedId;
   }
 
   updateMarkers(parks) {

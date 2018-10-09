@@ -1,6 +1,8 @@
 import {combineReducers} from 'redux';
-import filterReducer from './filter_reducer';
+import filterReducer from './ui/filter_reducer';
+import selectedParkReducer from './ui/selected_park_reducer';
 
 export default combineReducers({
-  filters: filterReducer
+  filters: filterReducer,
+  selectedPark: selectedParkReducer
 });

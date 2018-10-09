@@ -8,7 +8,7 @@ class ParkIndexItem extends React.Component {
   }
 
   handleClick(event) {
-    console.log(event.currentTarget);
+    this.props.receiveSelectedPark(this.props.park);
   }
 
   render() {

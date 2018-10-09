@@ -180,6 +180,27 @@ var fetchParks = function fetchParks(bounds) {
 
 /***/ }),
 
+/***/ "./frontend/actions/selected_park_actions.js":
+/*!***************************************************!*\
+  !*** ./frontend/actions/selected_park_actions.js ***!
+  \***************************************************/
+/*! exports provided: RECEIVE_SELECTED_PARK, receiveSelectedPark */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_SELECTED_PARK", function() { return RECEIVE_SELECTED_PARK; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveSelectedPark", function() { return receiveSelectedPark; });
+var RECEIVE_SELECTED_PARK = 'RECEIVE_SELECTED_PARK';
+var receiveSelectedPark = function receiveSelectedPark(park) {
+  return {
+    type: RECEIVE_SELECTED_PARK,
+    park: park
+  };
+};
+
+/***/ }),
+
 /***/ "./frontend/actions/session_actions.js":
 /*!*********************************************!*\
   !*** ./frontend/actions/session_actions.js ***!
@@ -840,12 +861,15 @@ function (_React$Component) {
   _createClass(ParkIndex, [{
     key: "render",
     value: function render() {
+      var _this = this;
+
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
         className: "park-index-list"
       }, this.props.parks.map(function (park) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_park_index_item__WEBPACK_IMPORTED_MODULE_1__["default"], {
           key: park.id,
-          park: park
+          park: park,
+          receiveSelectedPark: _this.props.receiveSelectedPark
         });
       })));
     }
@@ -871,6 +895,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _park_index__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./park_index */ "./frontend/components/park/park_index.jsx");
 /* harmony import */ var _reducers_selectors__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../reducers/selectors */ "./frontend/reducers/selectors.js");
 /* harmony import */ var _actions_park_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/park_actions */ "./frontend/actions/park_actions.js");
+/* harmony import */ var _actions_selected_park_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../actions/selected_park_actions */ "./frontend/actions/selected_park_actions.js");
+
 
 
 
@@ -888,6 +914,9 @@ var mapDispatchToProps = function mapDispatchToProps() {
     return {
       fetchParks: function fetchParks(park) {
         return dispatch(Object(_actions_park_actions__WEBPACK_IMPORTED_MODULE_3__["fetchParks"])(park));
+      },
+      receiveSelectedPark: function receiveSelectedPark(park) {
+        return dispatch(Object(_actions_selected_park_actions__WEBPACK_IMPORTED_MODULE_4__["receiveSelectedPark"])(park));
       }
     };
   };
@@ -946,7 +975,7 @@ function (_React$Component) {
   _createClass(ParkIndexItem, [{
     key: "handleClick",
     value: function handleClick(event) {
-      console.log(event.currentTarget);
+      this.props.receiveSelectedPark(this.props.park);
     }
   }, {
     key: "render",
@@ -1324,33 +1353,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./frontend/reducers/filter_reducer.js":
-/*!*********************************************!*\
-  !*** ./frontend/reducers/filter_reducer.js ***!
-  \*********************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _actions_filter_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/filter_actions */ "./frontend/actions/filter_actions.js");
-
-/* harmony default export */ __webpack_exports__["default"] = (function () {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-  var action = arguments.length > 1 ? arguments[1] : undefined;
-  Object.freeze(state);
-
-  switch (action.type) {
-    case _actions_filter_actions__WEBPACK_IMPORTED_MODULE_0__["UPDATE_BOUNDS"]:
-      return action.bounds;
-
-    default:
-      return state;
-  }
-});
-
-/***/ }),
-
 /***/ "./frontend/reducers/root_reducer.js":
 /*!*******************************************!*\
   !*** ./frontend/reducers/root_reducer.js ***!
@@ -1427,6 +1429,64 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./frontend/reducers/ui/filter_reducer.js":
+/*!************************************************!*\
+  !*** ./frontend/reducers/ui/filter_reducer.js ***!
+  \************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _actions_filter_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../actions/filter_actions */ "./frontend/actions/filter_actions.js");
+
+/* harmony default export */ __webpack_exports__["default"] = (function () {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+  Object.freeze(state);
+
+  switch (action.type) {
+    case _actions_filter_actions__WEBPACK_IMPORTED_MODULE_0__["UPDATE_BOUNDS"]:
+      return action.bounds;
+
+    default:
+      return state;
+  }
+});
+
+/***/ }),
+
+/***/ "./frontend/reducers/ui/selected_park_reducer.js":
+/*!*******************************************************!*\
+  !*** ./frontend/reducers/ui/selected_park_reducer.js ***!
+  \*******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _actions_selected_park_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../actions/selected_park_actions */ "./frontend/actions/selected_park_actions.js");
+
+/* harmony default export */ __webpack_exports__["default"] = (function () {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {
+    id: null
+  };
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+  Object.freeze(state);
+
+  switch (action.type) {
+    case _actions_selected_park_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_SELECTED_PARK"]:
+      return {
+        id: action.park.id
+      };
+
+    default:
+      return state;
+  }
+});
+
+/***/ }),
+
 /***/ "./frontend/reducers/ui_reducer.js":
 /*!*****************************************!*\
   !*** ./frontend/reducers/ui_reducer.js ***!
@@ -1437,11 +1497,14 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
-/* harmony import */ var _filter_reducer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./filter_reducer */ "./frontend/reducers/filter_reducer.js");
+/* harmony import */ var _ui_filter_reducer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ui/filter_reducer */ "./frontend/reducers/ui/filter_reducer.js");
+/* harmony import */ var _ui_selected_park_reducer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ui/selected_park_reducer */ "./frontend/reducers/ui/selected_park_reducer.js");
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])({
-  filters: _filter_reducer__WEBPACK_IMPORTED_MODULE_1__["default"]
+  filters: _ui_filter_reducer__WEBPACK_IMPORTED_MODULE_1__["default"],
+  selectedPark: _ui_selected_park_reducer__WEBPACK_IMPORTED_MODULE_2__["default"]
 }));
 
 /***/ }),
@@ -1492,11 +1555,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 var MarkerManager =
 /*#__PURE__*/
 function () {
-  function MarkerManager(map) {
+  function MarkerManager(map, selectedId) {
     _classCallCheck(this, MarkerManager);
 
     this.map = map;
     this.markers = {};
+    this.selectedId = selectedId;
   }
 
   _createClass(MarkerManager, [{
